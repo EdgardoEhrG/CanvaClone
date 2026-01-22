@@ -1,7 +1,7 @@
 import { Canvas } from 'fabric';
 import { useCallback, useEffect } from 'react';
 
-// import * as fabric from 'fabric';
+import * as fabric from 'fabric';
 
 interface AutoResizeProps {
   canvas: Canvas | null;
@@ -17,39 +17,52 @@ export const useAutoResize = ({ canvas, container }: AutoResizeProps) => {
     const width = container.offsetWidth;
     const height = container.offsetHeight;
 
-    // const center = canvas.getCenterPoint();
-    // const zoomRatio: number = 0.85;
-    // const localWorkspace = canvas.getObjects().find((obj) => obj.name === 'clip')
-    // const scale = fabric.util.findScaleToFit(localWorkspace, { width, height });
-    // const zoom = zoomRatio * scale;
+    const center = canvas.getCenterPoint();
+    const zoomRatio: number = 0.85;
 
-    // canvas.setViewportTransform(fabric.iMatrix.concat());
-    // canvas.zoomToPoint(new fabric.Point(
-    //     center.left,
-    //     center.top,
-    // ), zoom)
+    const localWorkspace = canvas
+      .getObjects()
+      .find((obj) => obj.type === 'rect' && obj.get('name') === 'clip');
 
-    // if (!localWorkspace) return;
+    const scale = fabric.util.findScaleToFit(localWorkspace!, {
+      width,
+      height,
+    });
+    const zoom = zoomRatio * scale;
 
-    // const workspaceCenter = localWorkspace.getCenterPoint();
-    // const viewportTransform = canvas.viewportTransform;
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
 
-    // * add !viewportTransform below
+    canvas.zoomToPoint(new fabric.Point(center.x, center.y), zoom);
 
-    if (canvas.width === undefined || canvas.height === undefined) return;
+    if (!localWorkspace) return;
 
-    // viewportTransform[4] = canvas.width / 2 - workspaceCenter.x * viewportTransform[0];
-    // viewportTransform[5] = canvas.height / 2 - workspaceCenter.y * viewportTransform[3];
+    const workspaceCenter = localWorkspace.getCenterPoint();
+    const currentTransform = canvas.viewportTransform;
+    const newViewportTransform = [...currentTransform] as [
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+    ];
 
-    // canvas.setViewportTransform(viewportTransform)
+    const canvasWidth = canvas.getWidth();
+    const canvasHeight = canvas.getHeight();
 
-    canvas.setDimensions({ width, height });
+    if (!canvasWidth || !canvasHeight) {
+      return;
+    }
 
-    /* localWorkspace.clone((cloned: fabric.Rect) => {
-        canvas.clipPath = cloned;
-        canvas.requestRenderAll();
-    })
-    */
+    newViewportTransform[4] =
+      canvasWidth / 2 - workspaceCenter.x * newViewportTransform[0];
+    newViewportTransform[5] =
+      canvasHeight / 2 - workspaceCenter.y * newViewportTransform[3];
+
+    canvas.setViewportTransform(newViewportTransform);
+    canvas.requestRenderAll();
+
+    canvas.requestRenderAll();
   }, [canvas, container]);
 
   useEffect(() => {

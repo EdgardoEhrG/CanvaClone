@@ -27,6 +27,7 @@ export const useEditor = () => {
           color: 'rgba(0,0,0,0.8)',
           blur: 5,
         }),
+        data: { name: 'clip', type: 'workspace' },
       });
 
       initialCanvas.setDimensions({
