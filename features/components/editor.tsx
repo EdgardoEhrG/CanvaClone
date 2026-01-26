@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { JSX, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useEditor } from '../hooks/use-editor';
 
@@ -9,10 +9,12 @@ import { NavBar } from './navbar';
 import { SideBar } from './sidebar';
 import { ToolBar } from './toolbar';
 import { Footer } from './footer';
+import { ShapeSideBar } from './shape-sidebar';
+
 import { ActiveTool } from '@/types';
 
-const Editor = () => {
-  const { init } = useEditor();
+const Editor = (): JSX.Element => {
+  const { init, editor } = useEditor();
 
   const [activeTool, setActiveTool] = useState<ActiveTool>('select');
 
@@ -56,6 +58,11 @@ const Editor = () => {
       <NavBar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
       <div className="absolute h-[calc(100%-68px)] w-full top-17 flex">
         <SideBar
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <ShapeSideBar
+          editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />

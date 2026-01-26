@@ -1,5 +1,7 @@
 'use client';
 
+import { JSX } from 'react';
+
 import {
   LayoutTemplate,
   ImageIcon,
@@ -57,7 +59,10 @@ interface SideBarProps {
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const SideBar = ({ activeTool, onChangeActiveTool }: SideBarProps) => {
+export const SideBar = ({
+  activeTool,
+  onChangeActiveTool,
+}: SideBarProps): JSX.Element => {
   return (
     <aside className="bg-white flex flex-col w-25 h-full border-r overflow-y-auto">
       <ul className="flex flex-col">

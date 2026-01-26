@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import {
   Tooltip,
   TooltipContent,
@@ -21,7 +23,7 @@ export const Hint = ({
   align,
   sideOffset,
   alignOffset,
-}: HintProps) => {
+}: HintProps): JSX.Element => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>

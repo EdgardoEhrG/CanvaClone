@@ -1,5 +1,7 @@
 'use client';
 
+import { JSX } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Logo } from './logo';
 import {
@@ -19,7 +21,9 @@ import {
 import { CiFileOn } from 'react-icons/ci';
 import { Hint } from '@/components/hint';
 import { BsCloudCheck } from 'react-icons/bs';
+
 import { ActiveTool } from '@/types';
+
 import { cn } from '@/lib/utils';
 
 interface NavBarProps {
@@ -27,7 +31,10 @@ interface NavBarProps {
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const NavBar = ({ activeTool, onChangeActiveTool }: NavBarProps) => {
+export const NavBar = ({
+  activeTool,
+  onChangeActiveTool,
+}: NavBarProps): JSX.Element => {
   const handleUndo = () => {};
 
   const handleRedo = () => {};
