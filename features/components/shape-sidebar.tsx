@@ -5,25 +5,25 @@ import { JSX } from 'react';
 import { cn } from '@/lib/utils';
 
 import { ActiveTool, Editor } from '@/types';
-import { ToolSideBarHeader } from './tool-sidebar-header';
-import { ToolSideBarClose } from './tool-sidebar-close';
+import { ToolSidebarHeader } from './tool-sidebar-header';
+import { ToolSidebarClose } from './tool-sidebar-close';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { ShapeTool } from './shape-tool';
 import { FaCircle, FaSquare, FaSquareFull } from 'react-icons/fa';
 import { FaDiamond } from 'react-icons/fa6';
 import { IoTriangle } from 'react-icons/io5';
 
-interface ShapeSideBarProps {
+interface ShapeSidebarProps {
   activeTool: ActiveTool;
   editor: Editor | undefined;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const ShapeSideBar = ({
+export const ShapeSidebar = ({
   activeTool,
   editor,
   onChangeActiveTool,
-}: ShapeSideBarProps): JSX.Element => {
+}: ShapeSidebarProps): JSX.Element => {
   const handleClose = (): void => {
     onChangeActiveTool('select');
   };
@@ -35,7 +35,7 @@ export const ShapeSideBar = ({
         activeTool === 'shapes' ? 'visible' : 'hidden'
       )}
     >
-      <ToolSideBarHeader title="Shapes" description="Add shape" />
+      <ToolSidebarHeader title="Shapes" description="Add shape" />
       <ScrollArea>
         <div className="grid grid-cols-4 gap-4 p-4">
           <ShapeTool icon={FaCircle} onClick={() => editor?.addCircle()} />
@@ -58,7 +58,7 @@ export const ShapeSideBar = ({
           <ShapeTool icon={FaDiamond} onClick={() => editor?.addDiamond()} />
         </div>
       </ScrollArea>
-      <ToolSideBarClose onClick={handleClose} />
+      <ToolSidebarClose onClick={handleClose} />
     </aside>
   );
 };

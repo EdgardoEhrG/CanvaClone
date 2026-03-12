@@ -5,11 +5,12 @@ import { JSX, useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '../hooks/use-editor';
 
 import { Canvas } from 'fabric';
-import { NavBar } from './navbar';
-import { SideBar } from './sidebar';
-import { ToolBar } from './toolbar';
+import { Navbar } from './navbar';
+import { Sidebar } from './sidebar';
+import { Toolbar } from './toolbar';
 import { Footer } from './footer';
-import { ShapeSideBar } from './shape-sidebar';
+import { ShapeSidebar } from './shape-sidebar';
+import { FillColorSidebar } from './fill-color-sidebar';
 
 import { ActiveTool } from '@/types';
 
@@ -55,19 +56,29 @@ const Editor = (): JSX.Element => {
 
   return (
     <div className="h-full flex flex-col">
-      <NavBar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
+      <Navbar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
       <div className="absolute h-[calc(100%-68px)] w-full top-17 flex">
-        <SideBar
+        <Sidebar
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
-        <ShapeSideBar
+        <ShapeSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <FillColorSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
         <main className="bg-muted flex-1 overflow-auto relative flex flex-col border-gray-700">
-          <ToolBar />
+          <Toolbar
+            editor={editor}
+            activeTool={activeTool}
+            onChangeActiveTool={onChangeActiveTool}
+            key={JSON.stringify(editor?.canvas.getActiveObject())}
+          />
           <div
             className="flex-1 h-[calc(100%-124px)] bg-muted"
             ref={containerRef}

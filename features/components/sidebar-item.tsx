@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 import type { LucideIcon } from 'lucide-react';
 
-interface SideBarItemProps {
+interface SidebarItemProps {
   icon: LucideIcon;
   label: string;
 
@@ -15,12 +15,12 @@ interface SideBarItemProps {
   onClick: () => void;
 }
 
-export const SideBarItem = ({
+export const SidebarItem = ({
   icon: Icon,
   label,
   isActive,
   onClick,
-}: SideBarItemProps): JSX.Element => {
+}: SidebarItemProps): JSX.Element => {
   return (
     <Button
       variant="ghost"

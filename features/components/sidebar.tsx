@@ -11,11 +11,11 @@ import {
   Type,
 } from 'lucide-react';
 
-import { SideBarItem } from './sidebar-item';
+import { SidebarItem } from './sidebar-item';
 
-import type { ActiveTool, SideBarElement } from '@/types';
+import type { ActiveTool, SidebarElement } from '@/types';
 
-const sideBarMenuElements: SideBarElement[] = [
+const sidebarMenuElements: SidebarElement[] = [
   {
     id: 1,
     icon: LayoutTemplate,
@@ -54,21 +54,21 @@ const sideBarMenuElements: SideBarElement[] = [
   },
 ];
 
-interface SideBarProps {
+interface SidebarProps {
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const SideBar = ({
+export const Sidebar = ({
   activeTool,
   onChangeActiveTool,
-}: SideBarProps): JSX.Element => {
+}: SidebarProps): JSX.Element => {
   return (
     <aside className="bg-white flex flex-col w-25 h-full border-r overflow-y-auto">
       <ul className="flex flex-col">
-        {sideBarMenuElements.map((element) => {
+        {sidebarMenuElements.map((element) => {
           return (
-            <SideBarItem
+            <SidebarItem
               key={element.id}
               label={element.label}
               icon={element.icon}

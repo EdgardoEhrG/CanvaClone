@@ -4,13 +4,13 @@ import { JSX } from 'react';
 
 import { ChevronLeft } from 'lucide-react';
 
-interface ToolSideBarCloseProps {
+interface ToolSidebarCloseProps {
   onClick: () => void;
 }
 
-export const ToolSideBarClose = ({
+export const ToolSidebarClose = ({
   onClick,
-}: ToolSideBarCloseProps): JSX.Element => {
+}: ToolSidebarCloseProps): JSX.Element => {
   return (
     <button
       className="absolute -right-[1.80rem] h-17.5 bg-white top-1/2 transform  -translate-y-1/2 flex items-center justify-center rounded-r-xl px-1 pr-2 border-r border-y group"

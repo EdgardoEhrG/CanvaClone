@@ -26,15 +26,15 @@ import { ActiveTool } from '@/types';
 
 import { cn } from '@/lib/utils';
 
-interface NavBarProps {
+interface NavbarProps {
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const NavBar = ({
+export const Navbar = ({
   activeTool,
   onChangeActiveTool,
-}: NavBarProps): JSX.Element => {
+}: NavbarProps): JSX.Element => {
   const handleUndo = () => {};
 
   const handleRedo = () => {};

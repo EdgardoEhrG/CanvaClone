@@ -2,15 +2,15 @@
 
 import { JSX } from 'react';
 
-interface ToolSideBarHeaderProps {
+interface ToolSidebarHeaderProps {
   title: string;
   description?: string;
 }
 
-export const ToolSideBarHeader = ({
+export const ToolSidebarHeader = ({
   title,
   description,
-}: ToolSideBarHeaderProps): JSX.Element => {
+}: ToolSidebarHeaderProps): JSX.Element => {
   return (
     <div className="p-4 border-b space-y-1 h-[68px]">
       <p className="text-sm font-medium">{title}</p>
