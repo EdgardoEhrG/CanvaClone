@@ -1,10 +1,13 @@
 'use client';
 
+import { JSX } from 'react';
+
 import { Hint } from '@/components/hint';
 import { Button } from '@/components/ui/button';
+
 import { cn } from '@/lib/utils';
+
 import { ActiveTool, Editor } from '@/types';
-import { JSX } from 'react';
 
 interface ToolbarProps {
   editor: Editor | undefined;
@@ -17,15 +20,8 @@ export const Toolbar = ({
   activeTool,
   onChangeActiveTool,
 }: ToolbarProps): JSX.Element => {
-  const selectedObject = editor?.canvas.getActiveObject();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getProperty = (property: any) => {
-    if (!selectedObject) return null;
-    return selectedObject.get(property);
-  };
-
-  const fillColor = getProperty('fill');
+  const fillColor = editor?.getActiveFillColor();
+  const strokeColor = editor?.getActiveStrokeColor();
 
   if (!editor?.selectedObjects.length) {
     return (
@@ -47,6 +43,24 @@ export const Toolbar = ({
               className="rounded-sm size-4 border"
               style={{
                 backgroundColor: fillColor,
+              }}
+            ></div>
+          </Button>
+        </Hint>
+      </div>
+
+      <div className="flex items-center h-full justify-center">
+        <Hint label="Border color" side="bottom" sideOffset={5}>
+          <Button
+            className={cn(activeTool === 'stroke-color' && 'bg-gray-100')}
+            size="icon"
+            variant="ghost"
+            onClick={() => onChangeActiveTool('stroke-color')}
+          >
+            <div
+              className="rounded-sm size-4 border-2 bg-white "
+              style={{
+                borderColor: strokeColor,
               }}
             ></div>
           </Button>

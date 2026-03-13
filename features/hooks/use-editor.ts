@@ -79,6 +79,8 @@ const buildEditor = ({
       canvas.renderAll();
     },
 
+    // Shapes
+
     addCircle: () => {
       const obj = new Circle({
         ...CIRCLE_OPTIONS,
@@ -156,6 +158,28 @@ const buildEditor = ({
       addToCanvas(obj);
     },
 
+    // Colors
+
+    getActiveFillColor: (): string => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) return fillColor;
+
+      const value = selectedObject.get('fill') || fillColor;
+
+      return value as string;
+    },
+
+    getActiveStrokeColor: (): string => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) return strokeColor;
+
+      const value = selectedObject.get('strokeColor') || strokeColor;
+
+      return value as string;
+    },
+
     canvas,
     fillColor,
     strokeColor,
@@ -164,7 +188,11 @@ const buildEditor = ({
   };
 };
 
-export const useEditor = () => {
+interface EditorHookProps {
+  clearSelectionCallback?: () => void;
+}
+
+export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
   const [canvas, setCanvas] = useState<Canvas | null>(null);
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [selectedObjects, setSelectedObjects] = useState<FabricObject[]>([]);
@@ -179,6 +207,7 @@ export const useEditor = () => {
     canvas,
     container,
     setSelectedObjects,
+    clearSelectionCallback,
   });
 
   const editor = useMemo(() => {

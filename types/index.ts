@@ -11,6 +11,16 @@ export type SidebarElement = {
   toolName: ActiveTool;
 };
 
+export const dependentTools: string[] = [
+  'fill',
+  'font',
+  'filter',
+  'opacity',
+  'remove-bg',
+  'stroke-color',
+  'stroke-width',
+];
+
 export const colors = [
   material.red['500'],
   material.pink['500'],
@@ -68,6 +78,8 @@ export interface Editor {
   canvas: Canvas;
   selectedObjects: FabricObject[];
 
+  getActiveFillColor: () => string;
+  getActiveStrokeColor: () => string;
   changeFillColor: (value: string) => void;
   changeStrokeColor: (value: string) => void;
   changeStrokeWidth: (value: number) => void;

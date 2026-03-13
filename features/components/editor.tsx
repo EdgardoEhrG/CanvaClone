@@ -4,23 +4,32 @@ import { JSX, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useEditor } from '../hooks/use-editor';
 
-import { Canvas } from 'fabric';
 import { Navbar } from './navbar';
 import { Sidebar } from './sidebar';
 import { Toolbar } from './toolbar';
 import { Footer } from './footer';
 import { ShapeSidebar } from './shape-sidebar';
 import { FillColorSidebar } from './fill-color-sidebar';
+import { StrokeColorSidebar } from './stroke-color-sidebar';
 
-import { ActiveTool } from '@/types';
+import { ActiveTool, dependentTools } from '@/types';
+import { Canvas } from 'fabric';
 
 const Editor = (): JSX.Element => {
-  const { init, editor } = useEditor();
-
   const [activeTool, setActiveTool] = useState<ActiveTool>('select');
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const onClearSection = useCallback(() => {
+    if (dependentTools.includes(activeTool)) {
+      setActiveTool('select');
+    }
+  }, [activeTool]);
+
+  const { init, editor } = useEditor({
+    clearSelectionCallback: onClearSection,
+  });
 
   useEffect(() => {
     const canvas = new Canvas(canvasRef.current!, {
@@ -68,6 +77,11 @@ const Editor = (): JSX.Element => {
           onChangeActiveTool={onChangeActiveTool}
         />
         <FillColorSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <StrokeColorSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}

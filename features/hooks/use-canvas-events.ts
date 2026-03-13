@@ -5,12 +5,13 @@ interface ICanvasEvents {
   canvas: Canvas | null;
   container: HTMLDivElement | null;
   setSelectedObjects: (objects: FabricObject[]) => void;
+  clearSelectionCallback?: () => void;
 }
 
 export const useCanvasEvents = ({
   canvas,
-  container,
   setSelectedObjects,
+  clearSelectionCallback,
 }: ICanvasEvents) => {
   useEffect(() => {
     if (canvas) {
@@ -22,6 +23,7 @@ export const useCanvasEvents = ({
       });
       canvas.on('selection:cleared', (e) => {
         setSelectedObjects([]);
+        clearSelectionCallback?.();
       });
     }
 
@@ -32,5 +34,5 @@ export const useCanvasEvents = ({
         canvas.off('selection:cleared');
       }
     };
-  }, [canvas, setSelectedObjects]);
+  }, [canvas, setSelectedObjects, clearSelectionCallback]);
 };

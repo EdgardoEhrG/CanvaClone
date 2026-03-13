@@ -10,39 +10,40 @@ import { ToolSidebarHeader } from './tool-sidebar-header';
 import { ToolSidebarClose } from './tool-sidebar-close';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { ColorPicker } from './color-picker';
-import { FILL_COLOR } from '@/consts';
 
-interface FillColorSidebarProps {
+import { STROKE_COLOR } from '@/consts';
+
+interface StrokeColorSidebarProps {
   activeTool: ActiveTool;
   editor: Editor | undefined;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const FillColorSidebar = ({
+export const StrokeColorSidebar = ({
   activeTool,
   editor,
   onChangeActiveTool,
-}: FillColorSidebarProps): JSX.Element => {
+}: StrokeColorSidebarProps): JSX.Element => {
   const handleClose = (): void => {
     onChangeActiveTool('select');
   };
 
-  const value = editor?.getActiveFillColor() || FILL_COLOR;
+  const value = editor?.getActiveStrokeColor() || STROKE_COLOR;
 
   const handleChange = (value: string): void => {
-    editor?.changeFillColor(value);
+    editor?.changeStrokeColor(value);
   };
 
   return (
     <aside
       className={cn(
         'bg-white relative border-r z-40 w-90 h-full flex flex-col',
-        activeTool === 'fill' ? 'visible' : 'hidden'
+        activeTool === 'stroke-color' ? 'visible' : 'hidden'
       )}
     >
       <ToolSidebarHeader
-        title="Fill color"
-        description="Change color to element"
+        title="Stroke color"
+        description="Change stroke color to element"
       />
       <ScrollArea>
         <div className="p-4 space-y-6 ">
